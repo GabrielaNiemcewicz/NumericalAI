@@ -32,13 +32,32 @@ public class NumericalAproximations {
 			distance = Math.sqrt(random_x*random_x+random_y*random_y);
 			if(distance<1)
 			inside++;
-		
 		}
 		
 		bound = (double)area*inside/domain;
 		return (bound);
 	}
 	
+	public double get_volume_3D_elipse(double a, double b, double c) {
+	double random_x,random_y, random_z;
+	
+	double bound; 
+	double area = 8*a*b*c;
+	int inside=0;
+	double distance;
+	
+	for(int i=0; i<25000;i++) {
+		random_x= (2*Math.random()-1)*a;
+		random_y= (2*Math.random()-1)*b;
+		random_z= (2*Math.random()-1)*c;
+		distance = Math.sqrt(Math.pow((random_x/a),2) + Math.pow((random_y/b),2) +Math.pow((random_z/c),2));
+		if(distance<1)
+		inside++;	
+	}
+	bound = (double)area*inside/25000;
+	return (bound);
+	
+}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Choose a number to calculate its' square root numerically. It can have numbers after a dot.");
@@ -63,6 +82,13 @@ public class NumericalAproximations {
 		temp/=1000;
 		System.out.println('\n'+"Observed PI: "+pis+", real pi:"+Math.PI+", error: "+temp+"%");
 		
+		double [] axis = new double [3];
+		System.out.println("Ellipsoid is a 3D elipse with 3 axes. Please provide 3 'radiuses' (var double)");
+		for(int i=0; i<3;i++)
+			axis[i] = sin.nextDouble();
+	pis = area.get_volume_3D_elipse(axis[0], axis[1], axis[2]);
+	temp = axis[0]*axis[1]*axis[2]*Math.PI*4/3;
+	System.out.println("Ellipsoid volume from Metropolis approximation is:"+pis+" Real area: "+temp);
 	}
 
 }
